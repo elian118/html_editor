@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <script>
+    tinymce.init({
+      selector: '#mytextarea',
+      plugins: [
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+        'media', 'table', 'emoticons', 'template', 'help'
+      ],
+      toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+              'alignleft aligncenter alignright alignjustify | ' +
+              'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+    });
+
+    parent.connect_content_to_flutter && parent.connect_content_to_flutter(window)
+
+    // 에디터로부터 HTML 콘텐츠 가져오기
+    const getValue = () => {
+      let text = tinymce.activeEditor.getContent();
+      console.log(text);
+      return text;
+    }
+
+    // 에디터로 HTML 콘텐츠 보내기(app -> web)
+    const setHtmlContent = (content) => {
+      tinymce.activeEditor.setContent(content);
+    }
+
+    // 에디터로 HTML 콘텐츠 보내기
+    window.addEventListener("message", (message) => {
+      if (message.data.id === "value") {
+        tinymce.activeEditor.setContent(message.data.msg);
+      }
+    });
+
+    window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+      const args = [1, true, ['bar', 5], {foo: 'baz'}];
+      window.flutter_inappwebview.callHandler('myHandlerName', ...args);
+    });
+  </script>
+</head>
+
+<body>
+<h1>TinyMCE Quick Start Guide</h1>
+<form method="post">
+  <textarea id="mytextarea">Hello, World!</textarea>
+</form>
+</body>
+</html>
