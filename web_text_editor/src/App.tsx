@@ -17,20 +17,27 @@ const App = () => {
         setText={setContent}
         minHeight={500}
       />
-      <div className="mt-4 grid gap-4 grid-cols-2">
+      <div className="m-4 grid gap-4 grid-cols-3">
         <Button
           variant="gradient"
           color="amber"
           onClick={handleOpen}
         >
-          콘텐츠 소스코드 보기
+          코드 보기
         </Button>
         <Button
           variant="gradient"
           color="amber"
           onClick={() => setContent(htmlText)}
         >
-          샘플 콘텐츠 입력
+          콘텐츠 입력
+        </Button>
+        <Button
+          variant="gradient"
+          color="amber"
+          onClick={() => setContent('')}
+        >
+          초기화
         </Button>
       </div>
       <Dialog open={open} handler={handleOpen} size={window.innerWidth > 1024 ? 'xl' : 'xxl'}>

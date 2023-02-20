@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
       ),
       body: Center(
         child: Wrap(
-          runSpacing: 10,
+          alignment: WrapAlignment.center,
           spacing: 10,
           children: [
             ElevatedButton(

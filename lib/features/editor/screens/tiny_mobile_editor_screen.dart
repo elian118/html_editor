@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html_editor/common/constants/rawData/html_text.dart';
+import 'package:html_editor/utils/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TinyMobileEditorScreen extends StatefulWidget {
@@ -10,7 +11,13 @@ class TinyMobileEditorScreen extends StatefulWidget {
 }
 
 class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
-  WebViewController controller = WebViewController()
+  bool isLoading = false;
+
+  late WebViewController controller = WebViewController()
+    ..setNavigationDelegate(NavigationDelegate(
+      onProgress: (progress) => setState(() => isLoading = true),
+      onPageFinished: (url) => setState(() => isLoading = false),
+    ))
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadFlutterAsset('assets/html/tiny_editor.html');
 
@@ -24,21 +31,25 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
       builder: (context) => AlertDialog(
         title: const Text('HTML 원본'),
         content: Text(htmlContent as String),
-        // actions: [
-        //   TextButton(
-        //     onPressed: () => Utils.navPop(context),
-        //     child: const Text('닫기'),
-        //   )
-        // ],
+        actions: [
+          TextButton(
+            onPressed: () => Utils.navPop(context),
+            child: const Text('닫기'),
+          )
+        ],
       ),
     );
   }
 
   // 예외 -> 작동 안 됨. 플러터와 상호작용할 수 있는 에디터 사용 바람 ex. flutter quill
   // 단, 현재 플러터 RichText 는 테이블 기능이 없는 듯 하다.
-  void sendMessageToEditor(String s) async {
-    // print(s);
-    controller.runJavaScriptReturningResult('setHtmlContent($s)');
+  void sendMessageToEditor(String text) async {
+    await controller.runJavaScript('setHtmlContent("$text")');
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -53,9 +64,11 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
             Center(
               child: SizedBox(
                 height: 400,
-                child: WebViewWidget(
-                  controller: controller,
-                ),
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : WebViewWidget(
+                        controller: controller,
+                      ),
               ),
             ),
             Wrap(

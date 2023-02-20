@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html_editor/utils/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TinyReactEditorScreen extends StatefulWidget {
@@ -9,7 +10,28 @@ class TinyReactEditorScreen extends StatefulWidget {
 }
 
 class _TinyReactEditorScreenState extends State<TinyReactEditorScreen> {
-  WebViewController controller = WebViewController()
+  bool isLoading = false;
+
+  late WebViewController controller = WebViewController()
+    ..setNavigationDelegate(NavigationDelegate(
+      onProgress: (progress) => setState(() => isLoading = true),
+      onWebResourceError: (error) async {
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('에러'),
+            content: Text('에러코드${error.errorCode}: ${error.description}'),
+            actions: [
+              TextButton(
+                  onPressed: () => Utils.navPop(context),
+                  child: const Text('닫기')),
+            ],
+          ),
+        );
+        Utils.navPop(context);
+      },
+      onPageFinished: (url) => setState(() => isLoading = false),
+    ))
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadRequest(Uri.parse('http://localhost:5173'));
 
@@ -23,8 +45,10 @@ class _TinyReactEditorScreenState extends State<TinyReactEditorScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height - 300,
-              child: WebViewWidget(controller: controller),
+              height: 570,
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : WebViewWidget(controller: controller),
             ),
           ],
         ),
