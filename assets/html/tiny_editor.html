@@ -88,7 +88,7 @@
     parent.connect_content_to_flutter && parent.connect_content_to_flutter(window)
 
     // 에디터로부터 HTML 콘텐츠 가져오기
-    const getValue = () => {
+    function getValue() {
       let text = tinymce.activeEditor.getContent();
       console.log(text);
       return text;
@@ -105,12 +105,34 @@
         tinymce.activeEditor.setContent(message.data.msg);
       }
     });
+
+    const getImgFile = (callback) => {
+      let input = document.getElementById('myImg');
+      input.click();
+
+      input.onchange = () => {
+        let file = input.files[0];
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          callback((e.target).result, {
+            alt: file.name,
+          });
+        };
+        reader.readAsDataURL(file);
+      };
+    };
   </script>
 </head>
 
 <body>
 <form method="post">
   <textarea id="mytextarea">안녕, 세계!</textarea>
+  <input
+    id="myImg"
+    accept="image/*"
+    type="file"
+    style="display: none"
+  />
 </form>
 </body>
 </html>

@@ -21,6 +21,7 @@ class _TinyWebEditorScreenState extends State<TinyWebEditorScreen> {
 
   // 외부 HTML 텍스트 주입 예시
   void getMessageFromEditor() {
+    // function 만 인식 가능하고 화살표 함수는 못 찾으니 주의
     final String htmlContent = connector.callMethod(
       'getValue',
     ) as String;
