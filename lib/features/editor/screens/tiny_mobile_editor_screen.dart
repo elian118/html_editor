@@ -41,10 +41,10 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
     );
   }
 
-  // 예외 -> 작동 안 됨. 플러터와 상호작용할 수 있는 에디터 사용 바람 ex. flutter quill
-  // 단, 현재 플러터 RichText 는 테이블 기능이 없는 듯 하다.
+  // 단, 현재 플러터 RichText 패키지들은 테이블 입력 기능이 없는 듯 하다.
   void sendMessageToEditor(String text) async {
-    await controller.runJavaScript('setHtmlContent("$text")');
+    // HTML 문자열 전송 시, 큰 따옴표("") 중복에 주의해야 한다.
+    await controller.runJavaScript("""setHtmlContent('$text')""");
   }
 
   @override
