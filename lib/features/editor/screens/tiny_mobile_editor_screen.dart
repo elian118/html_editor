@@ -47,36 +47,37 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
       appBar: AppBar(
         title: const Text('TinyMCE'),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
               child: SizedBox(
-                  height: 600,
-                  child: WebViewWidget(
-                    controller: controller,
-                  )),
+                height: 400,
+                child: WebViewWidget(
+                  controller: controller,
+                ),
+              ),
             ),
-          ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 10,
-            children: [
-              ElevatedButton(
-                onPressed: getMessageFromEditor,
-                child: const Text("에디터로부터 HTML 콘텐츠 가져오기"),
-              ),
-              ElevatedButton(
-                onPressed: () => sendMessageToEditor(htmlText),
-                child: const Text("에디터로 HTML 콘텐츠 보내기"),
-              ),
-              ElevatedButton(
-                onPressed: () => sendMessageToEditor(''),
-                child: const Text("에디터 초기화"),
-              ),
-            ],
-          ),
-        ],
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              children: [
+                ElevatedButton(
+                  onPressed: getMessageFromEditor,
+                  child: const Text("에디터로부터 HTML 콘텐츠 가져오기"),
+                ),
+                ElevatedButton(
+                  onPressed: () => sendMessageToEditor(htmlText),
+                  child: const Text("에디터로 HTML 콘텐츠 보내기"),
+                ),
+                ElevatedButton(
+                  onPressed: () => sendMessageToEditor(''),
+                  child: const Text("에디터 초기화"),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
