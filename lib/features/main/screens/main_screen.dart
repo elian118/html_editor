@@ -59,7 +59,7 @@ class MainScreen extends StatelessWidget {
                       builder: (context) => const BlockAlert(),
                     )
                   : Utils.navPush(context, const TinyReactEditorScreen()),
-              child: const Text('리약트 타이니 편집기(웹뷰)'),
+              child: const Text('리액트 타이니 편집기(웹뷰)'),
             ),
           ],
         ),
