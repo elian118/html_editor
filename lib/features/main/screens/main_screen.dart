@@ -1,13 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:html_editor/common/constants/rawData/local_url.dart';
 import 'package:html_editor/common/widgets/block_alert.dart';
 import 'package:html_editor/features/editor/screens/html_editor_enhanced_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_mobile_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_react_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_web_editor_screen.dart';
 import 'package:html_editor/utils/utils.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  void showErrorDialog(String errMsg) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('에러'),
+        content: Text(errMsg),
+        actions: [
+          TextButton(
+              onPressed: () => Utils.navPop(context), child: const Text('닫기')),
+        ],
+      ),
+    );
+  }
+
+  void launchBrowser(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(
+        url,
+        mode: LaunchMode.inAppWebView,
+        webOnlyWindowName: '리액트 타이니 편집기(URL 런처)',
+        webViewConfiguration: const WebViewConfiguration(
+          enableDomStorage: true,
+          enableJavaScript: true,
+        ),
+      );
+    } else {
+      showErrorDialog('브라우저에서 $url 열기 실패');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +97,10 @@ class MainScreen extends StatelessWidget {
                     )
                   : Utils.navPush(context, const TinyReactEditorScreen()),
               child: const Text('리액트 타이니 편집기(웹뷰)'),
+            ),
+            ElevatedButton(
+              onPressed: () => launchBrowser(localUrl),
+              child: const Text('리액트 타이니 편집기(URL 런처)'),
             ),
           ],
         ),

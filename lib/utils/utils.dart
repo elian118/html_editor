@@ -54,4 +54,19 @@ class Utils {
   // 웹화면인가?
   static bool isWebScreen(BuildContext context) =>
       MediaQuery.of(context).size.width > Breakpoint.md;
+
+  static dynamic errHandler(BuildContext context, err) async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('에러'),
+        content: Text('에러코드${err.errorCode}: ${err.description}'),
+        actions: [
+          TextButton(
+              onPressed: () => Utils.navPop(context), child: const Text('닫기')),
+        ],
+      ),
+    );
+    Utils.navPop(context);
+  }
 }

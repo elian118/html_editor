@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html_editor/common/constants/rawData/local_url.dart';
 import 'package:html_editor/utils/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -15,25 +16,11 @@ class _TinyReactEditorScreenState extends State<TinyReactEditorScreen> {
   late WebViewController controller = WebViewController()
     ..setNavigationDelegate(NavigationDelegate(
       onProgress: (progress) => setState(() => isLoading = true),
-      onWebResourceError: (error) async {
-        await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('에러'),
-            content: Text('에러코드${error.errorCode}: ${error.description}'),
-            actions: [
-              TextButton(
-                  onPressed: () => Utils.navPop(context),
-                  child: const Text('닫기')),
-            ],
-          ),
-        );
-        Utils.navPop(context);
-      },
+      onWebResourceError: (err) => Utils.errHandler(context, err),
       onPageFinished: (url) => setState(() => isLoading = false),
     ))
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('http://localhost:5173'));
+    ..loadRequest(Uri.parse(localUrl));
 
   @override
   Widget build(BuildContext context) {
