@@ -56,7 +56,7 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TinyMCE'),
+        title: const Text('TinyMCE(웹뷰)'),
       ),
       body: SingleChildScrollView(
         child: Column(

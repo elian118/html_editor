@@ -19,11 +19,8 @@ class _PreviewScreenState extends State<PreviewScreen> {
       ),
       body: Utils.isWebScreen(context)
           ? SingleChildScrollView(
-              child: SizedBox(
-                height: 600,
-                child: HtmlWidget(
-                  widget.htmlString ?? "No data!",
-                ),
+              child: HtmlWidget(
+                widget.htmlString ?? "No data!",
               ),
             )
           : SingleChildScrollView(

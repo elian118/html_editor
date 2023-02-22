@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:html_editor/common/constants/rawData/local_url.dart';
 import 'package:html_editor/common/widgets/block_alert.dart';
+import 'package:html_editor/features/editor/screens/ck_mobile_editor_screen.dart';
+import 'package:html_editor/features/editor/screens/ck_web_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/html_editor_enhanced_screen.dart';
 import 'package:html_editor/features/editor/screens/quill_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/quill_html_editor_screen.dart';
@@ -76,6 +78,42 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
               child: const Text('타이니 웹 편집기'),
+            ),
+            ElevatedButton(
+              onPressed: () => Utils.isWebScreen(context)
+                  ? Utils.navPush(context, const CkWebEditorScreen())
+                  : showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('안내'),
+                        content: const Text('모바일에서 제공되지 않습니다.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Utils.navPop(context),
+                            child: const Text('닫기'),
+                          )
+                        ],
+                      ),
+                    ),
+              child: const Text('CK 웹 편집기'),
+            ),
+            ElevatedButton(
+              onPressed: () => !Utils.isWebScreen(context)
+                  ? Utils.navPush(context, const CkMobileEditorScreen())
+                  : showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('안내'),
+                        content: const Text('웹에서 제공되지 않습니다.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Utils.navPop(context),
+                            child: const Text('닫기'),
+                          )
+                        ],
+                      ),
+                    ),
+              child: const Text('CK 모바일 편집기'),
             ),
             ElevatedButton(
               onPressed: () => Utils.isWebScreen(context)
