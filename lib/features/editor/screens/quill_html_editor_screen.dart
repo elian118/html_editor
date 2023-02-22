@@ -14,6 +14,7 @@ class QuillHtmlEditorScreen extends StatefulWidget {
 
 class _QuillHtmlEditorScreenState extends State<QuillHtmlEditorScreen> {
   late String text = "";
+  late bool isEdit = true;
   final QuillEditorController _controller = QuillEditorController();
 
   void _onTextChange(value) {
@@ -30,10 +31,20 @@ class _QuillHtmlEditorScreenState extends State<QuillHtmlEditorScreen> {
     htmlText.isEmpty ? _controller.clear() : _controller.setText(htmlText);
   }
 
-  // 표가 나타나지 않음
+  void toggleEditMode() {
+    isEdit = !isEdit;
+    setState(() {});
+  }
+
+  // 표가 나타나지 않음, 새창으로 진입시 화면 깨짐
   void preview() async {
-    String? tempTxt = await _controller.getText();
-    Utils.navPush(context, PreviewScreen(htmlString: tempTxt));
+    String? text = await _controller.getText();
+    Utils.navPush(
+      context,
+      PreviewScreen(
+        htmlString: text,
+      ),
+    );
   }
 
   @override
@@ -44,29 +55,31 @@ class _QuillHtmlEditorScreenState extends State<QuillHtmlEditorScreen> {
       ),
       body: Column(
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ToolBar(
-                  // toolBarColor: Colors.amber.withOpacity(0.7),
-                  controller: _controller,
-                  // iconColor: Colors.grey.shade500,
-                  // activeIconColor: Colors.blue,
-                )
-              ],
+          if (isEdit)
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ToolBar(
+                    // toolBarColor: Colors.amber.withOpacity(0.7),
+                    controller: _controller,
+                    // iconColor: Colors.grey.shade500,
+                    // activeIconColor: Colors.blue,
+                  )
+                ],
+              ),
             ),
-          ),
           QuillHtmlEditor(
             text: text,
             controller: _controller,
             hintText: '여기에 작성하세요.',
             height: MediaQuery.of(context).size.height - 450,
-            isEnabled: true,
+            isEnabled: isEdit,
             hintTextAlign: TextAlign.start,
             padding: EdgeInsets.zero,
             hintTextPadding: EdgeInsets.zero,
+            onFocusChanged: _onTextChange,
             onTextChanged: _onTextChange,
           ),
           Padding(
@@ -76,8 +89,12 @@ class _QuillHtmlEditorScreenState extends State<QuillHtmlEditorScreen> {
               spacing: 10,
               children: [
                 ElevatedButton(
+                  onPressed: toggleEditMode,
+                  child: Text(isEdit ? '편집모드' : '읽기모드'),
+                ),
+                ElevatedButton(
                   onPressed: preview,
-                  child: const Text("미리보기"),
+                  child: const Text('미리보기'),
                 ),
                 ElevatedButton(
                   onPressed: getMessageFromEditor,
