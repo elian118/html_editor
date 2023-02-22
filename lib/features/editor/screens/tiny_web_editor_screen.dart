@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:html_editor/common/constants/rawData/html_text.dart';
 import 'package:html_editor/features/ui/fake_ui.dart'
     if (dart.library.html) 'package:html_editor/features/ui/real_ui.dart' as ui;
+import 'package:html_editor/utils/utils.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:universal_html/js.dart' as js;
 
@@ -31,12 +32,12 @@ class _TinyWebEditorScreenState extends State<TinyWebEditorScreen> {
       builder: (context) => AlertDialog(
         title: const Text('HTML 원본'),
         content: Text(htmlContent),
-        // actions: [
-        //   TextButton(
-        //     onPressed: () => Utils.navPop(context),
-        //     child: const Text('닫기'),
-        //   )
-        // ],
+        actions: [
+          TextButton(
+            onPressed: () => Utils.navPop(context),
+            child: const Text('닫기'),
+          )
+        ],
       ),
     );
   }

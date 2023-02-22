@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html_editor/common/constants/enums/breakpoints.dart';
-import 'package:html_editor/common/widgets/web_container.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:html_editor/utils/utils.dart';
 
-class PreviewScreen extends StatelessWidget {
+class PreviewScreen extends StatefulWidget {
   final String? htmlString;
   const PreviewScreen({Key? key, this.htmlString}) : super(key: key);
 
+  @override
+  State<PreviewScreen> createState() => _PreviewScreenState();
+}
+
+class _PreviewScreenState extends State<PreviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,23 +18,22 @@ class PreviewScreen extends StatelessWidget {
         title: const Text('미리보기'),
       ),
       body: Utils.isWebScreen(context)
-          ? WebContainer(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              maxWidth: Breakpoint.xl,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0.5,
-                    color: Colors.grey.shade300,
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: SingleChildScrollView(
-                  child: Html(data: htmlString ?? "No data!"),
+          ? SingleChildScrollView(
+              child: SizedBox(
+                height: 600,
+                child: HtmlWidget(
+                  widget.htmlString ?? "No data!",
                 ),
               ),
             )
-          : SingleChildScrollView(child: Html(data: htmlString ?? "No data!")),
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: HtmlWidget(
+                  widget.htmlString ?? "No data!",
+                ),
+              ),
+            ),
     );
   }
 }

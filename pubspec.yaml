@@ -41,6 +41,11 @@ dependencies:
   html_editor_enhanced: ^2.5.1
   flutter_html: ^3.0.0-alpha.6
   url_launcher: ^6.1.9
+  flutter_quill: ^6.4.4
+  delta_markdown: ^0.8.0
+  markdown: ^7.0.1
+  quill_html_editor: ^2.0.8
+  flutter_widget_from_html: ^0.10.0
 
 dev_dependencies:
   flutter_test:

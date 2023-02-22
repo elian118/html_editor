@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:html_editor/common/constants/rawData/local_url.dart';
 import 'package:html_editor/common/widgets/block_alert.dart';
 import 'package:html_editor/features/editor/screens/html_editor_enhanced_screen.dart';
+import 'package:html_editor/features/editor/screens/quill_editor_screen.dart';
+import 'package:html_editor/features/editor/screens/quill_html_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_mobile_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_react_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_web_editor_screen.dart';
@@ -88,6 +90,16 @@ class _MainScreenState extends State<MainScreen> {
               onPressed: () =>
                   Utils.navPush(context, const HtmlEditorEnhancedScreen()),
               child: const Text('강화된 HTML 편집기(다트 패키지)'),
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  Utils.navPush(context, const QuillEditorScreen()),
+              child: const Text('퀼 편집기(다트 패키지)'),
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  Utils.navPush(context, const QuillHtmlEditorScreen()),
+              child: const Text('퀼 HTML 편집기(다트 패키지)'),
             ),
             ElevatedButton(
               onPressed: () => Utils.isWebScreen(context)
