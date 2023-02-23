@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:html_editor/common/constants/enums/breakpoints.dart';
 import 'package:html_editor/common/constants/rawData/html_text.dart';
 import 'package:html_editor/common/widgets/web_container.dart';
+import 'package:html_editor/features/editor/screens/preview_screen.dart';
 import 'package:html_editor/features/ui/fake_ui.dart'
     if (dart.library.html) 'package:html_editor/features/ui/real_ui.dart' as ui;
 import 'package:html_editor/utils/utils.dart';
@@ -31,7 +32,14 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('HTML 원본'),
-        content: Text(htmlContent),
+        content: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height - 400,
+            ),
+            child: Text(htmlContent),
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Utils.navPop(context),
@@ -47,6 +55,18 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
       'id': 'value',
       'msg': data,
     }, "*");
+  }
+
+  void preview() async {
+    final String htmlContent = connector.callMethod(
+      'getContent',
+    ) as String;
+    Utils.navPush(
+      context,
+      PreviewScreen(
+        htmlString: htmlContent,
+      ),
+    );
   }
 
   @override
@@ -81,6 +101,10 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
                 spacing: 10,
                 children: [
                   ElevatedButton(
+                    onPressed: preview,
+                    child: const Text("미리보기"),
+                  ),
+                  ElevatedButton(
                     onPressed: getMessageFromEditor,
                     child: const Text("에디터로부터 HTML 콘텐츠 가져오기"),
                   ),
@@ -99,7 +123,7 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
                 // height: 340,
                 height: 600,
                 child: WebContainer(
-                  maxWidth: Breakpoint.xl,
+                  maxWidth: Breakpoint.lg,
                   child: HtmlElementView(
                     viewType: createdViewId,
                   ),
