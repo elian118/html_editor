@@ -12,6 +12,7 @@ import 'package:html_editor/features/editor/screens/quill_html_editor_screen.dar
 import 'package:html_editor/features/editor/screens/tiny_mobile_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_react_editor_screen.dart';
 import 'package:html_editor/features/editor/screens/tiny_web_editor_screen.dart';
+import 'package:html_editor/features/main/widgets/editor_type.dart';
 import 'package:html_editor/utils/utils.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -71,14 +72,7 @@ class _MainScreenState extends State<MainScreen> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    'CK 에디터',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ),
+                const EditorType(title: 'CK 에디터'),
                 ElevatedButton(
                   onPressed: () => Utils.isWebScreen(context)
                       ? Utils.navPush(context, const CkWebEditorScreen())
@@ -94,14 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                 const Divider(
                   thickness: 2,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    '타이니 MCE 에디터',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ),
+                const EditorType(title: '타이니 MCE 에디터'),
                 ElevatedButton(
                   onPressed: () => Utils.isWebScreen(context)
                       ? Utils.navPush(context, const TinyWebEditorScreen())
@@ -120,13 +107,11 @@ class _MainScreenState extends State<MainScreen> {
                 const Divider(
                   thickness: 2,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    '다트 패키기 엄선 3종',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
+                const EditorType(title: '다트 패키지 엄선 3종'),
+                ElevatedButton(
+                  onPressed: () =>
+                      Utils.navPush(context, const QuillHtmlEditorScreen()),
+                  child: const Text('퀼 HTML 편집기(다트 패키지)'),
                 ),
                 ElevatedButton(
                   onPressed: () =>
@@ -138,22 +123,10 @@ class _MainScreenState extends State<MainScreen> {
                       Utils.navPush(context, const QuillEditorScreen()),
                   child: const Text('퀼 편집기(다트 패키지)'),
                 ),
-                ElevatedButton(
-                  onPressed: () =>
-                      Utils.navPush(context, const QuillHtmlEditorScreen()),
-                  child: const Text('퀼 HTML 편집기(다트 패키지)'),
-                ),
                 const Divider(
                   thickness: 2,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    '리액트 연동 사례',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ),
+                const EditorType(title: '리액트 연동 사례'),
                 ElevatedButton(
                   onPressed: () => Utils.isWebScreen(context)
                       ? showDialog(
