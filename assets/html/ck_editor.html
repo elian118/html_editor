@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
 <style>
-    #container {
-        width: 1000px;
-        margin: 20px auto;
-    }
+    /*#container {*/
+    /*    width: 400px;*/
+    /*    min-width: 400px;*/
+    /*    max-width: 1000px;*/
+    /*    margin: 20px auto;*/
+    /*}*/
     .ck-editor__editable[role="textbox"] {
         /* editing area */
         min-height: 200px;
@@ -19,6 +21,7 @@
         margin: 20px auto;
     }
 </style>
+<body>
 <div id="container">
   <div id="editor">
   </div>
@@ -33,9 +36,10 @@
 
 
 <!--  한국어 번역 불러오기    -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/translations/ko.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/translations/ko.js"></script>
 
 <script>
+  let editor;
   // This sample still does not showcase all CKEditor 5 features (!)
   // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
   CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
@@ -49,7 +53,7 @@
         'bulletedList', 'numberedList', 'todoList', '|',
         'outdent', 'indent', '|',
         // 'undo', 'redo',
-        '-',
+        // '-', // 아이템 행 나눔
         'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
         'alignment', '|',
         'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
@@ -58,7 +62,7 @@
         '|',
         'sourceEditing'
       ],
-      shouldNotGroupWhenFull: true
+      shouldNotGroupWhenFull: false // false -> 한 줄로 아이템 나열
     },
     language: 'ko', // 한국어 선택
     list: {
@@ -177,6 +181,25 @@
       // from a local file system (file://) - load this site via HTTP server if you enable MathType
       'MathType'
     ]
+  }).then( newEditor => editor = newEditor).catch(err => console.error(err));
+
+  parent.connect_content_to_flutter && parent.connect_content_to_flutter(window);
+
+  // 에디터로부터 HTML 콘텐츠 가져오기
+  function getContent() {
+    return editor.getData();
+  }
+
+  // 에디터로 HTML 콘텐츠 보내기(app -> web)
+  function setContent(content) {
+    editor.setData(content);
+  }
+
+  // 에디터로 HTML 콘텐츠 보내기
+  window.addEventListener("message", (message) => {
+    if (message.data.id === "value") {
+      editor.setData(message.data.msg);
+    }
   });
 </script>
 </body>

@@ -60,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Wrap(
           alignment: WrapAlignment.center,
           spacing: 10,
+          runSpacing: 10,
           children: [
             ElevatedButton(
               onPressed: () => Utils.isWebScreen(context)
