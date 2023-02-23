@@ -7,8 +7,10 @@ void callDial(BuildContext context, Widget content, [bool isConfirm = false]) {
     builder: (context) => AlertDialog(
       title: const Text('알림'),
       content: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - 500,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height - 500,
+          ),
           child: content,
         ),
       ),
