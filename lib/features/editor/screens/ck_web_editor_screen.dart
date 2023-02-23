@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:html_editor/common/constants/enums/breakpoints.dart';
 import 'package:html_editor/common/constants/rawData/html_text.dart';
+import 'package:html_editor/common/widgets/web_container.dart';
 import 'package:html_editor/features/ui/fake_ui.dart'
     if (dart.library.html) 'package:html_editor/features/ui/real_ui.dart' as ui;
 import 'package:html_editor/utils/utils.dart';
@@ -96,8 +98,11 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
               SizedBox(
                 // height: 340,
                 height: 600,
-                child: HtmlElementView(
-                  viewType: createdViewId,
+                child: WebContainer(
+                  maxWidth: Breakpoint.xl,
+                  child: HtmlElementView(
+                    viewType: createdViewId,
+                  ),
                 ),
               ),
             ],
