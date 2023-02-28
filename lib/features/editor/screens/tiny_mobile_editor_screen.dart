@@ -26,9 +26,7 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
     Object htmlContent =
         await controller.runJavaScriptReturningResult('getValue()');
     // print(htmlContent);
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

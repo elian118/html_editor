@@ -23,9 +23,7 @@ class _HtmlEditorEnhancedScreenState extends State<HtmlEditorEnhancedScreen> {
     setState(() {
       htmlString = tempTxt;
     });
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     navPush(context, PreviewScreen(htmlString: htmlString));
     // showDialog(
     //   context: context,

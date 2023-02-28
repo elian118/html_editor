@@ -27,9 +27,7 @@ class _CkMobileEditorScreenState extends State<CkMobileEditorScreen> {
     Object htmlContent =
         await controller.runJavaScriptReturningResult('getContent()');
     // print(htmlContent);
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -54,9 +52,7 @@ class _CkMobileEditorScreenState extends State<CkMobileEditorScreen> {
   void preview() async {
     final String htmlContent =
         await controller.runJavaScriptReturningResult('getContent()') as String;
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     navPush(
       context,
       PreviewScreen(

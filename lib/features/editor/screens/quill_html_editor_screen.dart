@@ -39,9 +39,7 @@ class _QuillHtmlEditorScreenState extends State<QuillHtmlEditorScreen> {
   // 표가 나타나지 않음, 새창으로 진입시 화면 깨짐
   void preview() async {
     String? text = await _controller.getText();
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     navPush(
       context,
       PreviewScreen(
