@@ -31,8 +31,7 @@ class _MainScreenState extends State<MainScreen> {
         title: const Text('에러'),
         content: Text(errMsg),
         actions: [
-          TextButton(
-              onPressed: () => Utils.navPop(context), child: const Text('닫기')),
+          TextButton(onPressed: () => navPop(context), child: const Text('닫기')),
         ],
       ),
     );
@@ -74,14 +73,14 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 const EditorType(title: 'CK 에디터'),
                 ElevatedButton(
-                  onPressed: () => Utils.isWebScreen(context)
-                      ? Utils.navPush(context, const CkWebEditorScreen())
+                  onPressed: () => isWebScreen(context)
+                      ? navPush(context, const CkWebEditorScreen())
                       : callDial(context, const Text('모바일에서 제공되지 않습니다.')),
                   child: const Text('CK 웹 편집기'),
                 ),
                 ElevatedButton(
-                  onPressed: () => !Utils.isWebScreen(context)
-                      ? Utils.navPush(context, const CkMobileEditorScreen())
+                  onPressed: () => !isWebScreen(context)
+                      ? navPush(context, const CkMobileEditorScreen())
                       : callDial(context, const Text('웹에서 제공되지 않습니다.')),
                   child: const Text('CK 모바일 편집기'),
                 ),
@@ -90,18 +89,18 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 const EditorType(title: '타이니 MCE 에디터'),
                 ElevatedButton(
-                  onPressed: () => Utils.isWebScreen(context)
-                      ? Utils.navPush(context, const TinyWebEditorScreen())
+                  onPressed: () => isWebScreen(context)
+                      ? navPush(context, const TinyWebEditorScreen())
                       : callDial(context, const Text('모바일에서 제공되지 않습니다.')),
                   child: const Text('타이니 웹 편집기'),
                 ),
                 ElevatedButton(
-                  onPressed: () => Utils.isWebScreen(context)
+                  onPressed: () => isWebScreen(context)
                       ? showDialog(
                           context: context,
                           builder: (context) => const BlockAlert(),
                         )
-                      : Utils.navPush(context, const TinyMobileEditorScreen()),
+                      : navPush(context, const TinyMobileEditorScreen()),
                   child: const Text('타이니 모바일 편집기(웹뷰)'),
                 ),
                 const Divider(
@@ -110,17 +109,16 @@ class _MainScreenState extends State<MainScreen> {
                 const EditorType(title: '다트 패키지 엄선 3종'),
                 ElevatedButton(
                   onPressed: () =>
-                      Utils.navPush(context, const QuillHtmlEditorScreen()),
+                      navPush(context, const QuillHtmlEditorScreen()),
                   child: const Text('퀼 HTML 편집기(다트 패키지)'),
                 ),
                 ElevatedButton(
                   onPressed: () =>
-                      Utils.navPush(context, const HtmlEditorEnhancedScreen()),
+                      navPush(context, const HtmlEditorEnhancedScreen()),
                   child: const Text('강화된 HTML 편집기(다트 패키지)'),
                 ),
                 ElevatedButton(
-                  onPressed: () =>
-                      Utils.navPush(context, const QuillEditorScreen()),
+                  onPressed: () => navPush(context, const QuillEditorScreen()),
                   child: const Text('퀼 편집기(다트 패키지)'),
                 ),
                 const Divider(
@@ -128,12 +126,12 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 const EditorType(title: '리액트 연동 사례'),
                 ElevatedButton(
-                  onPressed: () => Utils.isWebScreen(context)
+                  onPressed: () => isWebScreen(context)
                       ? showDialog(
                           context: context,
                           builder: (context) => const BlockAlert(),
                         )
-                      : Utils.navPush(context, const TinyReactEditorScreen()),
+                      : navPush(context, const TinyReactEditorScreen()),
                   child: const Text('리액트 타이니 편집기(웹뷰)'),
                 ),
                 ElevatedButton(

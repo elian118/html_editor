@@ -23,7 +23,10 @@ class _HtmlEditorEnhancedScreenState extends State<HtmlEditorEnhancedScreen> {
     setState(() {
       htmlString = tempTxt;
     });
-    Utils.navPush(context, PreviewScreen(htmlString: htmlString));
+    if (!mounted) {
+      return;
+    }
+    navPush(context, PreviewScreen(htmlString: htmlString));
     // showDialog(
     //   context: context,
     //   builder: (context) => AlertDialog(
@@ -46,7 +49,7 @@ class _HtmlEditorEnhancedScreenState extends State<HtmlEditorEnhancedScreen> {
       ),
       body: Column(
         children: [
-          Utils.isWebScreen(context)
+          isWebScreen(context)
               ? WebContainer(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   maxWidth: Breakpoint.xl,

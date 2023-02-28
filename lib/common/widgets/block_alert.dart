@@ -13,7 +13,7 @@ class BlockAlert extends StatelessWidget {
       content: const Text('웹에서 제공되지 않습니다.'),
       actions: [
         TextButton(
-          onPressed: () => Utils.navPop(context),
+          onPressed: () => navPop(context),
           child: const Text('닫기'),
         )
       ],

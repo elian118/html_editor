@@ -42,7 +42,7 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Utils.navPop(context),
+            onPressed: () => navPop(context),
             child: const Text('닫기'),
           )
         ],
@@ -61,7 +61,7 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
     final String htmlContent = connector.callMethod(
       'getContent',
     ) as String;
-    Utils.navPush(
+    navPush(
       context,
       PreviewScreen(
         htmlString: htmlContent,
@@ -91,7 +91,7 @@ class _CkWebEditorScreenState extends State<CkWebEditorScreen> {
         title: const Text('CK 웹 편집기'),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Center(
           child: Column(
             children: [

@@ -19,7 +19,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
       appBar: AppBar(
         title: const Text('미리보기'),
       ),
-      body: Utils.isWebScreen(context)
+      body: isWebScreen(context)
           ? WebContainer(
               maxWidth: Breakpoint.lg,
               child: SingleChildScrollView(

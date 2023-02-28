@@ -26,6 +26,9 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
     Object htmlContent =
         await controller.runJavaScriptReturningResult('getValue()');
     // print(htmlContent);
+    if (!mounted) {
+      return;
+    }
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -33,7 +36,7 @@ class _TinyMobileEditorScreenState extends State<TinyMobileEditorScreen> {
         content: Text(htmlContent as String),
         actions: [
           TextButton(
-            onPressed: () => Utils.navPop(context),
+            onPressed: () => navPop(context),
             child: const Text('닫기'),
           )
         ],

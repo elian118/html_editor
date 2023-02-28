@@ -32,8 +32,8 @@ class WebContainer extends StatelessWidget {
       child: Container(
         padding: padding,
         constraints: BoxConstraints(
-          maxHeight: Utils.isWebScreen(context) ? maxHeight! : double.infinity,
-          maxWidth: Utils.isWebScreen(context) ? maxWidth! : double.infinity,
+          maxHeight: isWebScreen(context) ? maxHeight! : double.infinity,
+          maxWidth: isWebScreen(context) ? maxWidth! : double.infinity,
         ),
         child: child,
       ),

@@ -17,17 +17,17 @@ void callDial(BuildContext context, Widget content, [bool isConfirm = false]) {
       actions: isConfirm
           ? [
               TextButton(
-                onPressed: () => Utils.navPop(context),
+                onPressed: () => navPop(context),
                 child: const Text('확인'),
               ),
               TextButton(
-                onPressed: () => Utils.navPop(context),
+                onPressed: () => navPop(context),
                 child: const Text('취소'),
               )
             ]
           : [
               TextButton(
-                onPressed: () => Utils.navPop(context),
+                onPressed: () => navPop(context),
                 child: const Text('닫기'),
               )
             ],

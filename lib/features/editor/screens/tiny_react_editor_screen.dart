@@ -16,7 +16,7 @@ class _TinyReactEditorScreenState extends State<TinyReactEditorScreen> {
   late WebViewController controller = WebViewController()
     ..setNavigationDelegate(NavigationDelegate(
       onProgress: (progress) => setState(() => isLoading = true),
-      onWebResourceError: (err) => Utils.errHandler(context, err),
+      onWebResourceError: (err) => errHandler(context, err),
       onPageFinished: (url) => setState(() => isLoading = false),
     ))
     ..setJavaScriptMode(JavaScriptMode.unrestricted)

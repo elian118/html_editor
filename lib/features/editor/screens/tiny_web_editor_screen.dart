@@ -34,7 +34,7 @@ class _TinyWebEditorScreenState extends State<TinyWebEditorScreen> {
         content: Text(htmlContent),
         actions: [
           TextButton(
-            onPressed: () => Utils.navPop(context),
+            onPressed: () => navPop(context),
             child: const Text('닫기'),
           )
         ],
